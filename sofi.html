@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tareas</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      margin: 0;
+      padding: 0;
+    }
+
+    .contenedor {
+      width: 350px;
+      margin: 60px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      padding: 25px;
+    }
+
+    h1 {
+      font-size: 22px;
+      text-align: left;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #eef1f5;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s, opacity 0.4s;
+    }
+
+    li:hover {
+      background-color: #dce3ed;
+      transform: scale(1.02);
+    }
+
+    li.completada {
+      text-decoration: line-through;
+      color: #888;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .agregar-tarea {
+      display: flex;
+      margin-top: 15px;
+    }
+
+    input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .btn-agregar {
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      margin-left: 5px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-agregar:hover {
+      background-color: #005fa3;
+    }
+
+    .nota {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Lista de tareas</h1>
+    <ul id="lista-tareas">
+      <li>Limpiar el piso</li>
+      <li>Lavar los platos</li>
+      <li>Planchar</li>
+    </ul>
+
+    <div class="agregar-tarea">
+      <input type="text" id="nueva-tarea" placeholder="Escribe una nueva tarea...">
+      <button class="btn-agregar" onclick="agregarTarea()">Añadir</button>
+    </div>
+
+    <p class="nota">💡 Haz clic en una tarea para marcarla como realizada.</p>
+  </div>
+
+  <script>
+    // Permitir marcar tareas como completadas
+    const lista = document.getElementById('lista-tareas');
+
+    lista.addEventListener('click', (evento) => {
+      if (evento.target.tagName === 'LI') {
+        evento.target.classList.add('completada');
+        setTimeout(() => evento.target.remove(), 600); // Se borra suavemente
+      }
+    });
+
+    // Función para añadir nuevas tareas
+    function agregarTarea() {
+      const input = document.getElementById('nueva-tarea');
+      const texto = input.value.trim();
+
+      if (texto !== '') {
+        const nuevaTarea = document.createElement('li');
+        nuevaTarea.textContent = texto;
+        lista.appendChild(nuevaTarea);
+        input.value = '';
+      } else {
+        alert('Por favor, escribe una tarea antes de añadir.');
+      }
+    }
+  </script>
+</body>
+</html>
